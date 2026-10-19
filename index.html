@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Numerix Christmas Party 2026</title>
+ 
+<style>
+* {
+  box-sizing: border-box;
+}
+ 
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  background: #071f18;
+  color: white;
+  overflow: hidden;
+}
+ 
+#snow {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+}
+ 
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background:
+    radial-gradient(ellipse at top, #236044 0%, transparent 60%),
+    linear-gradient(135deg, #071f18, #173b2b);
+}
+ 
+.card {
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+  padding: 38px 24px;
+  border: 1px solid #d9b76c;
+  border-radius: 24px;
+  background: rgba(8, 36, 26, 0.92);
+  box-shadow: 0 0 45px rgba(233, 190, 99, 0.18);
+  position: relative;
+  z-index: 2;
+  animation: appear 1s ease-out;
+}
+ 
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translateY(25px) scale(.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+ 
+.lights {
+  color: #f5d98b;
+  font-size: 24px;
+  letter-spacing: 10px;
+  animation: twinkle 1.5s infinite alternate;
+}
+ 
+@keyframes twinkle {
+  from { opacity: .5; }
+  to { opacity: 1; }
+}
+ 
+.santa {
+  font-size: 70px;
+  margin: 12px 0;
+  animation: bounce 2s infinite;
+}
+ 
+@keyframes bounce {
+  0%, 100% { transform: translateY(0) rotate(-3deg); }
+  50% { transform: translateY(-9px) rotate(3deg); }
+}
+ 
+h1 {
+  font-size: clamp(27px, 6vw, 44px);
+  line-height: 1.15;
+  margin: 12px 0;
+  color: #f5d98b;
+}
+ 
+h2 {
+  font-size: 19px;
+  letter-spacing: 2px;
+  margin: 18px 0;
+}
+ 
+p {
+  line-height: 1.7;
+  color: #f3eee1;
+}
+ 
+.date {
+  display: inline-block;
+  padding: 10px 18px;
+  border: 1px solid #d9b76c;
+  border-radius: 30px;
+  color: #f5d98b;
+  margin: 12px 0;
+  font-weight: bold;
+}
+ 
+button {
+  margin-top: 20px;
+  padding: 16px 24px;
+  width: 100%;
+  max-width: 340px;
+  border: none;
+  border-radius: 50px;
+  background: #b72e3c;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 5px 0 #741b28;
+  transition: transform .2s, background .2s;
+}
+ 
+button:hover {
+  background: #d3404d;
+  transform: translateY(-3px);
+}
+ 
+.small {
+  font-size: 12px;
+  color: #c9d8cf;
+  margin-top: 25px;
+}
+ 
+@media (max-width: 480px) {
+  .card { padding: 28px 18px; }
+  .santa { font-size: 55px; }
+}
+</style>
+</head>
+ 
+<body>
+ 
+<canvas id="snow"></canvas>
+ 
+<main class="page">
+<section class="card">
+ 
+    <div class="lights">✦ ❄ ✦ ❄ ✦</div>
+ 
+    <div class="santa">🎅</div>
+ 
+    <h1>HO HO HOLD ON…</h1>
+<h1>IT'S PARTY TIME 2026! 🎄</h1>
+ 
+    <h2>NUMERIX YEAR-END CELEBRATION</h2>
+ 
+    <div class="date">📅 20 DECEMBER 2026</div>
+ 
+    <p>
+      We've survived deadlines, meetings and endless emails…
+      now it's time for some festive madness! 😂
+</p>
+ 
+    <p>
+      🎁 Gifts, giggles, good food and Christmas cheer await.
+<br>
+      Santa says your attendance is highly recommended! 👀
+</p>
+ 
+    <button onclick="openForm()">
+      🎁 LET'S GET THIS PARTY STARTED!
+</button>
+ 
+    <div class="small">
+      Made with festive cheer by Numerix ✨
+<br>
+      P.S. Santa is watching. Behave yourselves! 😂
+</div>
+ 
+  </section>
+</main>
+ 
+<script>
+// FALLING SNOW
+const canvas = document.getElementById("snow");
+const ctx = canvas.getContext("2d");
+let flakes = [];
+ 
+function resize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+ 
+  flakes = Array.from({length: 100}, () => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: Math.random() * 3 + 1,
+    speed: Math.random() * 1.5 + 0.5,
+    drift: Math.random() * 0.8 - 0.4
+  }));
+}
+ 
+function drawSnow() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = "rgba(255,255,255,0.85)";
+  ctx.beginPath();
+ 
+  flakes.forEach(f => {
+    ctx.moveTo(f.x + f.r, f.y);
+    ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+ 
+    f.y += f.speed;
+    f.x += f.drift;
+ 
+    if (f.y > canvas.height + 5) {
+      f.y = -5;
+      f.x = Math.random() * canvas.width;
+    }
+ 
+    if (f.x > canvas.width) f.x = 0;
+    if (f.x < 0) f.x = canvas.width;
+  });
+ 
+  ctx.fill();
+  requestAnimationFrame(drawSnow);
+}
+ 
+window.addEventListener("resize", resize);
+resize();
+drawSnow();
+ 
+// https://docs.google.com/forms/d/e/1FAIpQLSeZGuPzwRGSjQcPOFzQhVDYlN0KGe-W_DFiO-AAJtNrJzmqGQ/viewform?usp=header
+function openForm() {
+  const formURL = "https://docs.google.com/forms/d/e/1FAIpQLSeZGuPzwRGSjQcPOFzQhVDYlN0KGe-W_DFiO-AAJtNrJzmqGQ/viewform?usp=header%22;
+ 
+  if (formURL.startsWith("https://")) {
+    window.location.href = formURL;
+  } else {
+    alert("https://docs.google.com/forms/d/e/1FAIpQLSeZGuPzwRGSjQcPOFzQhVDYlN0KGe-W_DFiO-AAJtNrJzmqGQ/viewform?usp=header!%22);
+  }
+}
+</script>
+ 
+</body>
+</html>
