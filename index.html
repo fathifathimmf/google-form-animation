@@ -194,83 +194,54 @@ button:hover {
   </section>
 </main>
  
+
 <script>
-// FALLING SNOW
 const canvas = document.getElementById("snow");
 const ctx = canvas.getContext("2d");
+
 let flakes = [];
- 
+
 function resize() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
- 
-  flakes = Array.from({length: 100}, () => ({
-    x: Math.random() * canvas.width,
-    y: Math.random() * canvas.height,
+  const dpr = window.devicePixelRatio || 1;
+
+  canvas.width = window.innerWidth * dpr;
+  canvas.height = window.innerHeight * dpr;
+
+  canvas.style.width = window.innerWidth + "px";
+  canvas.style.height = window.innerHeight + "px";
+
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+  flakes = Array.from({ length: 150 }, () => ({
+    x: Math.random() * window.innerWidth,
+    y: Math.random() * window.innerHeight,
     r: Math.random() * 3 + 1,
-    speed: Math.random() * 1.5 + 0.5,
-    drift: Math.random() * 0.8 - 0.4
+    speed: Math.random() * 2 + 1,
+    drift: Math.random() * 1 - 0.5
   }));
 }
- 
+
 function drawSnow() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = "rgba(255,255,255,0.85)";
-  ctx.beginPath();
- 
+  ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+
   flakes.forEach(f => {
-    ctx.moveTo(f.x + f.r, f.y);
-    ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
- 
-    
-/* FALLING SNOW ANIMATION */
-const canvas = document.getElementById("snow");
-const ctx = canvas.getContext("2d");
-
-let flakes = [];
-
-function resize() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-
-  flakes = [];
-
-  for (let i = 0; i < 150; i++) {
-    flakes.push({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      r: Math.random() * 3 + 1.5,
-      speed: Math.random() * 2 + 1,
-      drift: Math.random() * 1 - 0.5
-    });
-  }
-}
-
-function drawSnow() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  flakes.forEach(flake => {
     ctx.beginPath();
-    ctx.arc(flake.x, flake.y, flake.r, 0, Math.PI * 2);
-
-    ctx.fillStyle = "rgba(255, 255, 255, 0.95)";
-    ctx.shadowBlur = 4;
-    ctx.shadowColor = "#ffffff";
+    ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+    ctx.fillStyle = "white";
     ctx.fill();
 
-    flake.y += flake.speed;
-    flake.x += flake.drift;
+    f.y += f.speed;
+    f.x += f.drift;
 
-    if (flake.y > canvas.height + 5) {
-      flake.y = -5;
-      flake.x = Math.random() * canvas.width;
+    if (f.y > window.innerHeight + 5) {
+      f.y = -5;
+      f.x = Math.random() * window.innerWidth;
     }
 
-    if (flake.x > canvas.width + 5) flake.x = -5;
-    if (flake.x < -5) flake.x = canvas.width + 5;
+    if (f.x > window.innerWidth) f.x = 0;
+    if (f.x < 0) f.x = window.innerWidth;
   });
 
-  ctx.shadowBlur = 0;
   requestAnimationFrame(drawSnow);
 }
 
@@ -278,19 +249,8 @@ window.addEventListener("resize", resize);
 
 resize();
 drawSnow();
-
- 
-// https://docs.google.com/forms/d/e/1FAIpQLSeZGuPzwRGSjQcPOFzQhVDYlN0KGe-W_DFiO-AAJtNrJzmqGQ/viewform?usp=header
-function openForm() {
-  const formURL = "https://docs.google.com/forms/d/e/1FAIpQLSeZGuPzwRGSjQcPOFzQhVDYlN0KGe-W_DFiO-AAJtNrJzmqGQ/viewform?usp=header%22;
- 
-  if (formURL.startsWith("https://")) {
-    window.location.href = formURL;
-  } else {
-    alert("https://docs.google.com/forms/d/e/1FAIpQLSeZGuPzwRGSjQcPOFzQhVDYlN0KGe-W_DFiO-AAJtNrJzmqGQ/viewform?usp=header!%22);
-  }
-}
 </script>
+
  
 </body>
 </html>
